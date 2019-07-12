@@ -35,7 +35,7 @@ defined('MOODLE_INTERNAL') || die;
 
 $capabilities = array(
 
-    'local/scriptdroit:create' => array(
+    'local/scriptdroit:manage' => array(
 
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,

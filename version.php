@@ -31,6 +31,6 @@
  * List all scripts and launch them.
  */
 
-$plugin->version = 2019071200;
+$plugin->version = 2019071201;
 $plugin->requires = 2015051100;
 $plugin->component = 'local_scriptdroit';
