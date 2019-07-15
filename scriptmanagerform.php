@@ -27,12 +27,30 @@
  * @copyright 2019 Laurent Guillet <laurent.guillet@u-cergy.fr>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * File : lang/en/local_scriptdroit.php
- * English language file
+ * File : scriptmanagerform.php
+ * Form file.
  */
 
-$string['pluginname'] = "Scripts UFR Droit";
-$string['scriptmanager'] = "Script manager for UFR Droit";
-$string['privacy:metadata'] = 'The plugin does not store personal data.';
-$string['local_scriptdroit:manage'] = 'Can use UFR Droit scripts';
-$string['scriptchoice'] = "Choose script to execute";
+defined('MOODLE_INTERNAL') || die;
+
+require_once($CFG->libdir . '/formslib.php');
+
+class scriptdroit_scriptmanager_form extends moodleform {
+
+    public function definition() {
+
+        global $CFG;
+
+        $mform = $this->_form;
+
+        $listscripts = array(1 => 'Test', 2 => 'Test 2');
+        $mform->addElement('select', 'scriptchoice', get_string('scriptchoice', 'local_scriptdroit'), $listscripts);
+
+        $this->add_action_buttons();
+    }
+
+    public function validation($data, $files) {
+
+        return array();
+    }
+}

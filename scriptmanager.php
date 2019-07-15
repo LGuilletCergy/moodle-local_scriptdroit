@@ -31,3 +31,36 @@
  * List all scripts and launch them.
  */
 
+include('../../config.php');
+require_once('scriptmanagerform.php');
+
+require_login();
+
+$contextsystem = context_system::instance();
+$PAGE->set_context($contextsystem);
+$currenturl = new moodle_url('/local/scriptdroit/scriptmanager.php');
+$PAGE->set_url($currenturl);
+
+require_capability('local/scriptdroit:manage', $contextsystem);
+
+if ($mform->is_cancelled()) {
+
+    $originurl = new moodle_url('/admin/search.php');
+    redirect($originurl);
+
+} else if ($fromform = $mform->get_data()) {
+
+    if ($fromform->scriptchoice == 1) {
+
+        $sort = new sort_alphabetically();
+        \core\task\manager::queue_adhoc_task($sort);
+    }
+
+} else {
+
+    echo $OUTPUT->header();
+
+    $mform->display();
+}
+
+echo $OUTPUT->footer();

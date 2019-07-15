@@ -35,3 +35,4 @@ $string['pluginname'] = "Scripts UFR Droit";
 $string['scriptmanager'] = "Gestionnaire de scripts UFR Droit";
 $string['privacy:metadata'] = 'Le plugin ne stocke pas de donnée personnelle.';
 $string['local_scriptdroit:manage'] = 'Peut lancer les scripts de l\'UFR Droit';
+$string['scriptchoice'] = "Choisir le script à exécuter";
