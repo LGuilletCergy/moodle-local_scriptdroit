@@ -33,6 +33,7 @@
 
 include('../../config.php');
 require_once('scriptmanagerform.php');
+require_once($CFG->dirroot.'/scriptdroit/classes/task/sortalphabetically.php');
 
 require_login();
 
