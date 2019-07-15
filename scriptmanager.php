@@ -43,6 +43,8 @@ $PAGE->set_url($currenturl);
 
 require_capability('local/scriptdroit:manage', $contextsystem);
 
+$mform = new scriptdroit_scriptmanager_form();
+
 if ($mform->is_cancelled()) {
 
     $originurl = new moodle_url('/admin/search.php');
