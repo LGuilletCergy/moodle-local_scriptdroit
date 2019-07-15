@@ -59,6 +59,8 @@ if ($mform->is_cancelled()) {
         \core\task\manager::queue_adhoc_task($sort);
     }
 
+    $originurl = new moodle_url('/admin/search.php');
+    redirect($originurl);
 } else {
 
     echo $OUTPUT->header();
