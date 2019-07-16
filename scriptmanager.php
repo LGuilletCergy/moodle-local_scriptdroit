@@ -55,12 +55,11 @@ if ($mform->is_cancelled()) {
 
     if ($fromform->scriptchoice == 1) {
 
-        $sort = new \core\task\sort_alphabetically();
+        $sort = new sort_alphabetically();
         \core\task\manager::queue_adhoc_task($sort);
         $now = time();
         // Get it from the scheduler.
         $task = \core\task\manager::get_next_adhoc_task($now);
-        $this->assertInstanceOf('\\core\\task\\sort_alphabetically', $task);
         $task->execute();
         \core\task\manager::adhoc_task_complete($task);
         $currenturl = new moodle_url('/local/scriptdroit/scriptmanager.php');

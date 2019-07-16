@@ -31,8 +31,6 @@
  * Sort categories and courses by alphabetical order.
  */
 
-namespace local_scriptdroit;
-
 defined('MOODLE_INTERNAL') || die();
 
 class sort_alphabetically extends \core\task\adhoc_task {
