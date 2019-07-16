@@ -55,7 +55,7 @@ if ($mform->is_cancelled()) {
 
     if ($fromform->scriptchoice == 1) {
 
-        $sort = new sort_alphabetically();
+        $sort = new \core\task\sort_alphabetically();
         \core\task\manager::queue_adhoc_task($sort);
         $now = time();
         // Get it from the scheduler.
