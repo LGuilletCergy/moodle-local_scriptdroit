@@ -42,6 +42,8 @@ $PAGE->set_url($currenturl);
 
 require_capability('local/scriptdroit:manage', $contextsystem);
 
+$originurl = new moodle_url('/local/scriptdroit/scriptmanager.php');
+
 echo $OUTPUT->header();
 delete_course(2431);
 echo "<a href=$originurl>".get_string('redirect', 'local_scriptdroit')."</a>";
