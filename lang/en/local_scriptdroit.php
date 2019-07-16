@@ -36,3 +36,6 @@ $string['scriptmanager'] = "Script manager for UFR Droit";
 $string['privacy:metadata'] = 'The plugin does not store personal data.';
 $string['local_scriptdroit:manage'] = 'Can use UFR Droit scripts';
 $string['scriptchoice'] = "Choose script to execute";
+$string['redirect'] = "Return to previous page";
+$string['sortalphabetically'] = "Sort categories and courses alphabetically";
+$string['transfercourses'] = "Transfer UFR Droit courses";

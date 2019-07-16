@@ -33,7 +33,6 @@
 
 include('../../config.php');
 require_once('scriptmanagerform.php');
-require_once($CFG->dirroot.'/local/scriptdroit/classes/task/sortalphabetically.php');
 
 require_login();
 
@@ -55,15 +54,9 @@ if ($mform->is_cancelled()) {
 
     if ($fromform->scriptchoice == 1) {
 
-        $sort = new sort_alphabetically();
-        \core\task\manager::queue_adhoc_task($sort);
-        $now = time();
-        // Get it from the scheduler.
-        $task = \core\task\manager::get_next_adhoc_task($now);
-        $task->execute();
-        \core\task\manager::adhoc_task_complete($task);
-        $currenturl = new moodle_url('/local/scriptdroit/scriptmanager.php');
-        redirect($currenturl);
+
+        $sorturl = new moodle_url('/local/scriptdroit/sortalphabetically.php');
+        redirect($sorturl);
     }
 } else {
 

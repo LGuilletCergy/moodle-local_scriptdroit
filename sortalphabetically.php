@@ -27,17 +27,22 @@
  * @copyright 2019 Laurent Guillet <laurent.guillet@u-cergy.fr>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * File : classes/task/sortalphabetically.php
+ * File : sortalphabetically.php
  * Sort categories and courses by alphabetical order.
  */
 
-defined('MOODLE_INTERNAL') || die();
+include('../../config.php');
 
-class sort_alphabetically extends \core\task\adhoc_task {
+require_login();
 
-    public function execute() {
+$contextsystem = context_system::instance();
+$PAGE->set_context($contextsystem);
+$currenturl = new moodle_url('/local/scriptdroit/sortalphabetically.php');
+$PAGE->set_url($currenturl);
 
+require_capability('local/scriptdroit:manage', $contextsystem);
 
-        delete_course(2431);
-    }
-}
+echo $OUTPUT->header();
+delete_course(2431);
+echo "<a href=$originurl>".get_string('redirect', 'local_scriptdroit')."</a>";
+echo $OUTPUT->footer();
