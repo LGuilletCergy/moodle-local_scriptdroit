@@ -56,7 +56,8 @@ $listcategories = $DB->get_records_sql($sqllistcategories);
 
 foreach ($listcategories as $category) {
 
-    \core_course\management\helper::action_category_resort_subcategories($category->id, 'name');
+    $cattosort = coursecat::get($category->id);
+    \core_course\management\helper::action_category_resort_subcategories($cattosort, 'name');
 }
 
 echo "<a href=$originurl>".get_string('redirect', 'local_scriptdroit')."</a>";
