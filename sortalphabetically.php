@@ -32,6 +32,10 @@
  */
 
 include('../../config.php');
+require_once($CFG->dirroot.'/lib/coursecatlib.php');
+require_once($CFG->dirroot.'/course/lib.php');
+
+global $DB;
 
 require_login();
 
@@ -45,6 +49,15 @@ require_capability('local/scriptdroit:manage', $contextsystem);
 $originurl = new moodle_url('/local/scriptdroit/scriptmanager.php');
 
 echo $OUTPUT->header();
-delete_course(2431);
+
+$sqllistcategories = "SELECT * FROM {course_categories} WHERE depth >= 3";
+
+$listcategories = $DB->get_records_sql($sqllistcategories);
+
+foreach ($listcategories as $category) {
+
+    \core_course\management\helper::action_category_resort_subcategories($category->id, 'name');
+}
+
 echo "<a href=$originurl>".get_string('redirect', 'local_scriptdroit')."</a>";
 echo $OUTPUT->footer();

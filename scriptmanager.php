@@ -57,6 +57,14 @@ if ($mform->is_cancelled()) {
 
         $sorturl = new moodle_url('/local/scriptdroit/sortalphabetically.php');
         redirect($sorturl);
+    } else if ($fromform->scriptchoice == 2) {
+
+        $transferurl = new moodle_url('/local/scriptdroit/transfercourses.php');
+        redirect($transferurl);
+    } else {
+
+        $originurl = new moodle_url('/admin/search.php');
+        redirect($originurl);
     }
 } else {
 
