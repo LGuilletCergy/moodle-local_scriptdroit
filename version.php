@@ -34,3 +34,6 @@
 $plugin->version = 2019071600;
 $plugin->requires = 2015051100;
 $plugin->component = 'local_scriptdroit';
+$plugin->dependencies = array(
+    'block_mytermcourses' => 2019040503,   // The mytermcourses block version 2019040503 must be present.
+);
