@@ -51,8 +51,6 @@ $roleappuiadmin = $DB->get_record('role', array('shortname' => 'appuiadmin'));
 
 $listvets = local_scriptdroit_availablevets();
 
-print_object($listvets);
-
 foreach ($listvets as $vetcode => $vet) {
 
     $listcourses = $vet->courses;
@@ -134,8 +132,6 @@ function local_scriptdroit_availablevets() {
 
 function local_scriptdroit_availablecourses($xmlvet, $vetcodeyear) {
 
-    global $USER;
-
     $vetcourses = array();
     $xmlteachers = $xmlvet->childNodes;
 
@@ -145,23 +141,18 @@ function local_scriptdroit_availablecourses($xmlvet, $vetcodeyear) {
             continue;
         }
 
-        $xmlteacheruid = $xmlteacher->getAttribute('StaffUID');
+        $xmlcourses = $xmlteacher->childNodes;
 
-        if ($xmlteacheruid == $USER->username) {
+        foreach ($xmlcourses as $xmlcourse) {
 
-            $xmlcourses = $xmlteacher->childNodes;
+            if ($xmlcourse->nodeType !== 1) {
 
-            foreach ($xmlcourses as $xmlcourse) {
-
-                if ($xmlcourse->nodeType !== 1) {
-
-                        continue;
-                }
-                $coursecode = $xmlcourse->getAttribute('element_pedagogique');
-                $vetcourses[$coursecode] = new stdClass();
-                $vetcourses[$coursecode]->coursecodeyear = "$vetcodeyear-$coursecode";
-                $vetcourses[$coursecode]->coursename = $xmlcourse->getAttribute('libelle_long_element_pedagogique');
+                    continue;
             }
+            $coursecode = $xmlcourse->getAttribute('element_pedagogique');
+            $vetcourses[$coursecode] = new stdClass();
+            $vetcourses[$coursecode]->coursecodeyear = "$vetcodeyear-$coursecode";
+            $vetcourses[$coursecode]->coursename = $xmlcourse->getAttribute('libelle_long_element_pedagogique');
         }
     }
 
