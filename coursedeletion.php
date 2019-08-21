@@ -19,7 +19,7 @@ if (is_siteadmin()) {
     $timestart = 1566399600;
     $idnumberstart = "Y2019-1";
 
-    $sql = "SELECT * FROM {course} WHERE timestart > $timestart AND idnumber LIKE '$idnumberstart*'";
+    $sql = "SELECT * FROM {course} WHERE timecreated > $timestart AND idnumber LIKE '$idnumberstart*'";
 
     $listcourses = $DB->get_records_sql($sql);
 
