@@ -51,6 +51,8 @@ $roleappuiadmin = $DB->get_record('role', array('shortname' => 'appuiadmin'));
 
 $listvets = local_scriptdroit_availablevets();
 
+print_object($listvets);
+
 foreach ($listvets as $vetcode => $vet) {
 
     $listcourses = $vet->courses;
