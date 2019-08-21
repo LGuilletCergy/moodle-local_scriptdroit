@@ -73,7 +73,7 @@ foreach ($listvets as $vetcode => $vet) {
                 array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $course->id))->id;
 
         $listoldappuiadmins = $DB->get_records('role_assignments',
-                array('roleid' => $roleappuiadmin->id,'contextid' => $contextid));
+                array('roleid' => $roleappuiadmin->id,'contextid' => $oldcontextid));
 
         foreach ($listoldappuiadmins as $oldappuiadmin) {
 
