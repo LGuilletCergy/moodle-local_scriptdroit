@@ -6,6 +6,14 @@
  * and open the template in the editor.
  */
 
+include('../../config.php');
+
+require_login();
+
+echo $OUTPUT->header();
+
+echo $OUTPUT->footer();
+
 if (is_siteadmin()) {
 
     $timestart = 1566399600;
