@@ -66,8 +66,11 @@ foreach ($listvets as $vetcode => $vet) {
         $oldcoursecode = $CFG->previousyearprefix.substr($course->coursecodeyear, 5);
 
         $oldcourse = $DB->get_record('course', array('idnumber' => $oldcoursecode));
-        $contextid = $DB->get_record('context',
+        $oldcontextid = $DB->get_record('context',
                 array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $oldcourse->id))->id;
+
+        $contextid = $DB->get_record('context',
+                array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $course->id))->id;
 
         $listoldappuiadmins = $DB->get_records('role_assignments',
                 array('roleid' => $roleappuiadmin->id,'contextid' => $contextid));
