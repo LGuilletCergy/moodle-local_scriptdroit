@@ -75,7 +75,7 @@ foreach ($listvets as $vetcode => $vet) {
         foreach ($listoldappuiadmins as $oldappuiadmin) {
 
              // L'appui administratif est inscrit au cours.
-            $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual', 'courseid' => $oldcourse->id));
+            $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual', 'courseid' => $newcourse->id));
             $now = time();
             $roleassignment = new stdClass();
             $roleassignment->roleid = $roleappuiadmin->id;
