@@ -16,7 +16,7 @@ echo $OUTPUT->footer();
 
 if (is_siteadmin()) {
 
-    $timestart = 1566399600;
+    $timestart = 1566374400;
     $idnumberstart = "Y2019-1";
 
     $sql = "SELECT * FROM {course} WHERE timecreated > $timestart AND idnumber LIKE '$idnumberstart%'";
