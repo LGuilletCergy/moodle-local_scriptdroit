@@ -26,6 +26,7 @@ if (is_siteadmin()) {
     foreach ($listcourses as $course) {
 
         delete_course($course->id);
+        fix_course_sortorder();
     }
 }
 
