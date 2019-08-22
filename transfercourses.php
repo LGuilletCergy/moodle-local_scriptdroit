@@ -51,6 +51,9 @@ $roleappuiadmin = $DB->get_record('role', array('shortname' => 'appuiadmin'));
 
 $listvets = local_scriptdroit_availablevets();
 
+print_object($listvets);
+exit;
+
 // Faire des tests sur l'existence des catégories/cours/Autres trucs applicables
 
 foreach ($listvets as $vetcode => $vet) {
