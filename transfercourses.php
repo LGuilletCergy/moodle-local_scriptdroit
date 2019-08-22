@@ -86,7 +86,9 @@ foreach ($listvets as $vetcode => $vet) {
 
                         $user = $DB->get_record('user', array('id' => $oldappuiadmin->userid));
 
-                        if (!is_enrolled($context, $user)) {
+                        $contextinstance = context_course::instance($newcourse->id);
+
+                        if (!is_enrolled($contextinstance, $user)) {
 
                             // L'appui administratif est inscrit au cours.
                            $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual', 'courseid' => $newcourse->id));
