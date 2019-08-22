@@ -74,32 +74,41 @@ foreach ($listvets as $vetcode => $vet) {
                 $oldcontextid = $DB->get_record('context',
                         array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $oldcourse->id))->id;
 
-                $contextid = $DB->get_record('context',
-                        array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $newcourse->id))->id;
+                $context = $DB->get_record('context',
+                        array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $newcourse->id));
 
                 $listoldappuiadmins = $DB->get_records('role_assignments',
                         array('roleid' => $roleappuiadmin->id,'contextid' => $oldcontextid));
 
                 foreach ($listoldappuiadmins as $oldappuiadmin) {
 
-                     // L'appui administratif est inscrit au cours.
-                    $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual', 'courseid' => $newcourse->id));
-                    $now = time();
-                    $roleassignment = new stdClass();
-                    $roleassignment->roleid = $roleappuiadmin->id;
-                    $roleassignment->contextid = $contextid;
-                    $roleassignment->userid = $oldappuiadmin->userid;
-                    $roleassignment->timemodified = $now;
-                    $roleassignment->modifierid = 0;
-                    $DB->insert_record('role_assignments', $roleassignment);
-                    $enrolment = new stdClass();
-                    $enrolment->enrolid = $enrolmethod->id;
-                    $enrolment->userid = $oldappuiadmin->userid;
-                    $enrolment->timestart = $now;
-                    $enrolment->timecreated = $now;
-                    $enrolment->timemodified = $now;
-                    $enrolment->modifierid = 0;
-                    $DB->insert_record('user_enrolments', $enrolment);
+                    if ($DB->record_exists('user', array('id' => $oldappuiadmin->userid))) {
+
+                        $user = $DB->get_record('user', array('id' => $oldappuiadmin->userid));
+
+                        if (!is_enrolled($context, $user)) {
+
+                            // L'appui administratif est inscrit au cours.
+                           $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual', 'courseid' => $newcourse->id));
+                           $now = time();
+                           $roleassignment = new stdClass();
+                           $roleassignment->roleid = $roleappuiadmin->id;
+                           $roleassignment->contextid = $context->id;
+                           $roleassignment->userid = $oldappuiadmin->userid;
+                           $roleassignment->timemodified = $now;
+                           $roleassignment->modifierid = 0;
+                           $DB->insert_record('role_assignments', $roleassignment);
+
+                           $enrolment = new stdClass();
+                           $enrolment->enrolid = $enrolmethod->id;
+                           $enrolment->userid = $oldappuiadmin->userid;
+                           $enrolment->timestart = $now;
+                           $enrolment->timecreated = $now;
+                           $enrolment->timemodified = $now;
+                           $enrolment->modifierid = 0;
+                           $DB->insert_record('user_enrolments', $enrolment);
+                        }
+                    }
                 }
             }
         }
