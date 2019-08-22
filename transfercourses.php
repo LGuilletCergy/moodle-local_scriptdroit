@@ -75,7 +75,7 @@ foreach ($listvets as $vetcode => $vet) {
                         array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $oldcourse->id))->id;
 
                 $contextid = $DB->get_record('context',
-                        array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $course->id))->id;
+                        array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $newcourse->id))->id;
 
                 $listoldappuiadmins = $DB->get_records('role_assignments',
                         array('roleid' => $roleappuiadmin->id,'contextid' => $oldcontextid));
