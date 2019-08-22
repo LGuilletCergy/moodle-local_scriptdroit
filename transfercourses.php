@@ -51,50 +51,57 @@ $roleappuiadmin = $DB->get_record('role', array('shortname' => 'appuiadmin'));
 
 $listvets = local_scriptdroit_availablevets();
 
+// Faire des tests sur l'existence des catégories/cours/Autres trucs applicables
+
 foreach ($listvets as $vetcode => $vet) {
 
-    $listcourses = $vet->courses;
+    if ($DB->record_exists('course_categories', array('idnumber' => $vet->vetcodeyear))) {
 
-    $category = $DB->get_record('course_categories', array('idnumber' => $vet->vetcodeyear));
+        $listcourses = $vet->courses;
+        $category = $DB->get_record('course_categories', array('idnumber' => $vet->vetcodeyear));
 
-    foreach ($listcourses as $coursecode => $course) {
+        foreach ($listcourses as $coursecode => $course) {
 
-        $newcourse = local_scriptdroit_createcourse($course->coursename, $course->coursecodeyear, $category->id);
+            $newcourse = local_scriptdroit_createcourse($course->coursename, $course->coursecodeyear, $category->id);
 
-        // Ensuite, récupérer les appuis pédagogiques de l'ancien cours et les inscrire dans le nouveau.
+            // Ensuite, récupérer les appuis pédagogiques de l'ancien cours et les inscrire dans le nouveau.
 
-        $oldcoursecode = $CFG->previousyearprefix.substr($course->coursecodeyear, 5);
+            $oldcoursecode = $CFG->previousyearprefix.substr($course->coursecodeyear, 5);
 
-        $oldcourse = $DB->get_record('course', array('idnumber' => $oldcoursecode));
-        $oldcontextid = $DB->get_record('context',
-                array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $oldcourse->id))->id;
+            if ($DB->record_exists('course', array('idnumber' => $oldcoursecode))) {
 
-        $contextid = $DB->get_record('context',
-                array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $course->id))->id;
+                $oldcourse = $DB->get_record('course', array('idnumber' => $oldcoursecode));
+                $oldcontextid = $DB->get_record('context',
+                        array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $oldcourse->id))->id;
 
-        $listoldappuiadmins = $DB->get_records('role_assignments',
-                array('roleid' => $roleappuiadmin->id,'contextid' => $oldcontextid));
+                $contextid = $DB->get_record('context',
+                        array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $course->id))->id;
 
-        foreach ($listoldappuiadmins as $oldappuiadmin) {
+                $listoldappuiadmins = $DB->get_records('role_assignments',
+                        array('roleid' => $roleappuiadmin->id,'contextid' => $oldcontextid));
 
-             // L'appui administratif est inscrit au cours.
-            $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual', 'courseid' => $newcourse->id));
-            $now = time();
-            $roleassignment = new stdClass();
-            $roleassignment->roleid = $roleappuiadmin->id;
-            $roleassignment->contextid = $contextid;
-            $roleassignment->userid = $oldappuiadmin->userid;
-            $roleassignment->timemodified = $now;
-            $roleassignment->modifierid = 0;
-            $DB->insert_record('role_assignments', $roleassignment);
-            $enrolment = new stdClass();
-            $enrolment->enrolid = $enrolmethod->id;
-            $enrolment->userid = $oldappuiadmin->userid;
-            $enrolment->timestart = $now;
-            $enrolment->timecreated = $now;
-            $enrolment->timemodified = $now;
-            $enrolment->modifierid = 0;
-            $DB->insert_record('user_enrolments', $enrolment);
+                foreach ($listoldappuiadmins as $oldappuiadmin) {
+
+                     // L'appui administratif est inscrit au cours.
+                    $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual', 'courseid' => $newcourse->id));
+                    $now = time();
+                    $roleassignment = new stdClass();
+                    $roleassignment->roleid = $roleappuiadmin->id;
+                    $roleassignment->contextid = $contextid;
+                    $roleassignment->userid = $oldappuiadmin->userid;
+                    $roleassignment->timemodified = $now;
+                    $roleassignment->modifierid = 0;
+                    $DB->insert_record('role_assignments', $roleassignment);
+                    $enrolment = new stdClass();
+                    $enrolment->enrolid = $enrolmethod->id;
+                    $enrolment->userid = $oldappuiadmin->userid;
+                    $enrolment->timestart = $now;
+                    $enrolment->timecreated = $now;
+                    $enrolment->timemodified = $now;
+                    $enrolment->modifierid = 0;
+                    $DB->insert_record('user_enrolments', $enrolment);
+                }
+            }
         }
     }
 }
