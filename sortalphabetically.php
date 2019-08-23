@@ -31,7 +31,7 @@
  * Sort categories and courses by alphabetical order.
  */
 
-include('../../config.php');
+require_once('../../config.php');
 require_once($CFG->dirroot.'/lib/coursecatlib.php');
 require_once($CFG->dirroot.'/course/lib.php');
 

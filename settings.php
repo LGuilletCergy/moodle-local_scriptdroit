@@ -33,7 +33,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-if ($hassiteconfig) { // needs this condition or there is error on login page
+// Needs this condition or there is error on login page.
+
+if ($hassiteconfig) {
 
     $settings = new admin_settingpage('local_scriptdroit',
             get_string('pluginname', 'local_scriptdroit'));

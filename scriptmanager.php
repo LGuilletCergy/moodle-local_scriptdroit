@@ -31,7 +31,7 @@
  * List all scripts and launch them.
  */
 
-include('../../config.php');
+require_once('../../config.php');
 require_once('scriptmanagerform.php');
 
 require_login();

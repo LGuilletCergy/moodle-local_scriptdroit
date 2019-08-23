@@ -31,8 +31,8 @@
  * Create courses for UFR Droit and enrol teachers.
  */
 
-include('../../config.php');
-include('../../blocks/mytermcourses/lib.php');
+require_once('../../config.php');
+require_once('../../blocks/mytermcourses/lib.php');
 
 require_login();
 
@@ -49,12 +49,7 @@ echo $OUTPUT->header();
 
 $roleappuiadmin = $DB->get_record('role', array('shortname' => 'appuiadmin'));
 
-//$listvets = local_scriptdroit_availablevets();
-//
-//print_object($listvets);
-//exit;
-
-// Récupération de la liste des cours
+// Récupération de la liste des cours.
 
 $sqldroit = "SELECT * FROM {course_categories} WHERE idnumber LIKE '$CFG->previousyearprefix-1%' AND depth = 4 "
         . "AND idnumber NOT LIKE '$CFG->previousyearprefix-1COMMON' "
@@ -138,136 +133,8 @@ foreach ($listdroitoldcategories as $droitoldcategory) {
     }
 }
 
-// Fin de la récupération.
-
-//// Faire des tests sur l'existence des catégories/cours/Autres trucs applicables
-//
-//foreach ($listvets as $vetcode => $vet) {
-//
-//    if ($DB->record_exists('course_categories', array('idnumber' => $vet->vetcodeyear))) {
-//
-//        $listcourses = $vet->courses;
-//        $category = $DB->get_record('course_categories', array('idnumber' => $vet->vetcodeyear));
-//
-//        foreach ($listcourses as $coursecode => $course) {
-//
-//            $newcourse = local_scriptdroit_createcourse($course->coursename, $course->coursecodeyear, $category->id);
-//
-//            // Ensuite, récupérer les appuis pédagogiques de l'ancien cours et les inscrire dans le nouveau.
-//
-//            $oldcoursecode = $CFG->previousyearprefix.substr($course->coursecodeyear, 5);
-//
-//            if ($DB->record_exists('course', array('idnumber' => $oldcoursecode))) {
-//
-//                $oldcourse = $DB->get_record('course', array('idnumber' => $oldcoursecode));
-//                $oldcontextid = $DB->get_record('context',
-//                        array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $oldcourse->id))->id;
-//
-//                $context = $DB->get_record('context',
-//                        array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $newcourse->id));
-//
-//                $listoldappuiadmins = $DB->get_records('role_assignments',
-//                        array('roleid' => $roleappuiadmin->id,'contextid' => $oldcontextid));
-//
-//                foreach ($listoldappuiadmins as $oldappuiadmin) {
-//
-//                    if ($DB->record_exists('user', array('id' => $oldappuiadmin->userid))) {
-//
-//                        $user = $DB->get_record('user', array('id' => $oldappuiadmin->userid));
-//
-//                        $contextinstance = context_course::instance($newcourse->id);
-//
-//                        if (!is_enrolled($contextinstance, $user)) {
-//
-//                            // L'appui administratif est inscrit au cours.
-//                           $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual', 'courseid' => $newcourse->id));
-//                           $now = time();
-//                           $roleassignment = new stdClass();
-//                           $roleassignment->roleid = $roleappuiadmin->id;
-//                           $roleassignment->contextid = $context->id;
-//                           $roleassignment->userid = $oldappuiadmin->userid;
-//                           $roleassignment->timemodified = $now;
-//                           $roleassignment->modifierid = 0;
-//                           $DB->insert_record('role_assignments', $roleassignment);
-//
-//                           $enrolment = new stdClass();
-//                           $enrolment->enrolid = $enrolmethod->id;
-//                           $enrolment->userid = $oldappuiadmin->userid;
-//                           $enrolment->timestart = $now;
-//                           $enrolment->timecreated = $now;
-//                           $enrolment->timemodified = $now;
-//                           $enrolment->modifierid = 0;
-//                           $DB->insert_record('user_enrolments', $enrolment);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-
 echo "<a href=$originurl>".get_string('redirect', 'local_scriptdroit')."</a>";
 echo $OUTPUT->footer();
-
-//function local_scriptdroit_availablevets() {
-//
-//    // Regarder comment adapter la fonction à mes besoins
-//
-//    global $CFG;
-//
-//    $myvets = array();
-//    $filename = '/home/referentiel/dokeos_elp_ens.xml';
-//
-//    if (filesize($filename) > 0) {
-//
-//        $xmldoc = new DOMDocument();
-//        $xmldoc->load($filename);
-//        $xpathvar = new Domxpath($xmldoc);
-//        $vetquery = '//Structure_diplome[@Libelle_composante_superieure="1 : UFR DROIT"]';
-//        $xmlvets = $xpathvar->query($vetquery);
-//
-//        foreach ($xmlvets as $xmlvet) {
-//
-//            $vetcode = $xmlvet->getAttribute('Etape');
-//
-//            $myvets[$vetcode] = new stdClass();
-//            $myvets[$vetcode]->vetcodeyear = "$CFG->yearprefix-$vetcode";
-//            $myvets[$vetcode]->vetname = $xmlvet->getAttribute('libelle_long_version_etape');
-//            $myvets[$vetcode]->courses = local_scriptdroit_availablecourses($xmlvet, $myvets[$vetcode]->vetcodeyear);
-//        }
-//    }
-//
-//    return $myvets;
-//}
-//
-//function local_scriptdroit_availablecourses($xmlvet, $vetcodeyear) {
-//
-//    $vetcourses = array();
-//    $xmlteachers = $xmlvet->childNodes;
-//
-//    foreach ($xmlteachers as $xmlteacher) {
-//
-//        if ($xmlteacher->nodeType !== 1 ) {
-//            continue;
-//        }
-//
-//        $xmlcourses = $xmlteacher->childNodes;
-//
-//        foreach ($xmlcourses as $xmlcourse) {
-//
-//            if ($xmlcourse->nodeType !== 1) {
-//
-//                    continue;
-//            }
-//            $coursecode = $xmlcourse->getAttribute('element_pedagogique');
-//            $vetcourses[$coursecode] = new stdClass();
-//            $vetcourses[$coursecode]->coursecodeyear = "$vetcodeyear-$coursecode";
-//            $vetcourses[$coursecode]->coursename = $xmlcourse->getAttribute('libelle_long_element_pedagogique');
-//        }
-//    }
-//
-//    return $vetcourses;
-//}
 
 function local_scriptdroit_createcourse($coursename, $courseidnumber, $categoryid) {
 
@@ -288,44 +155,3 @@ function local_scriptdroit_createcourse($coursename, $courseidnumber, $categoryi
 
     return $newcourse;
 }
-
-// Normalement, j'utilise la version de mytermcourses
-// A supprimer si la version ci-dessus fonctionne bien.
-//
-//function local_scriptdroit_createsections($newcourse) {
-//
-//    global $DB;
-//
-//
-//    $sectiontitles = array('DESCRIPTION DU COURS', 'PLAN DE COURS', 'FICHES TD', 'INFORMATIONS GENERALES',
-//        'SUPPORT ET NOTES DE COURS');
-//
-//    $numsectionsoption = new stdClass();
-//    $numsectionsoption->courseid = $newcourse->id;
-//    $numsectionsoption->format = 'topics';
-//    $numsectionsoption->sectionid = 0;
-//    $numsectionsoption->name = 'numsections';
-//    $numsectionsoption->value = count($sectiontitles);
-//    $DB->insert_record('course_format_options', $numsectionsoption);
-//
-//    $now = time();
-//
-//    $i = 1;
-//
-//    foreach ($sectiontitles as $sectiontitle) {
-//
-//        $coursesection = new stdClass();
-//        $coursesection->course = $newcourse->id;
-//        $coursesection->section = $i;
-//        $coursesection->name = $sectiontitle;
-//        $coursesection->summary = '';
-//        $coursesection->summaryformat = 1;
-//        $coursesection->sequence = '';
-//        $coursesection->visible = 1;
-//        $coursesection->timemodified = $now;
-//        $DB->insert_record('course_sections', $coursesection);
-//        $i++;
-//    }
-//}
-
-

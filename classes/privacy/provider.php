@@ -27,7 +27,7 @@
  * @copyright 2017 Laurent Guillet <laurent.guillet@u-cergy.fr>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
-  * File : provider.php
+ * File : provider.php
  * RGPD file
  */
 
