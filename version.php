@@ -31,6 +31,8 @@
  * List all scripts and launch them.
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 $plugin->version = 2019071600;
 $plugin->requires = 2015051100;
 $plugin->component = 'local_scriptdroit';
