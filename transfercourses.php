@@ -49,10 +49,10 @@ echo $OUTPUT->header();
 
 $roleappuiadmin = $DB->get_record('role', array('shortname' => 'appuiadmin'));
 
-$listvets = local_scriptdroit_availablevets();
-
-print_object($listvets);
-exit;
+//$listvets = local_scriptdroit_availablevets();
+//
+//print_object($listvets);
+//exit;
 
 // Récupération de la liste des cours
 
