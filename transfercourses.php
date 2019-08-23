@@ -71,7 +71,7 @@ foreach ($listdroitoldcategories as $droitoldcategory) {
 
         $droitnewcategory = $DB->get_record('course_categories', array('idnumber' => $newvetcodeyear));
 
-        $listdroitoldcourses = $DB->get_records('course', array('categoryid' => $droitoldcategory->id));
+        $listdroitoldcourses = $DB->get_records('course', array('category' => $droitoldcategory->id));
 
         foreach ($listdroitoldcourses as $droitoldcourse) {
 
