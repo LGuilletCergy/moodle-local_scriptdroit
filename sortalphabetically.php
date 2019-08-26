@@ -50,17 +50,15 @@ $originurl = new moodle_url('/local/scriptdroit/scriptmanager.php');
 
 echo $OUTPUT->header();
 
-$sqllistcategories = "SELECT * FROM {course_categories} WHERE depth >= 3";
+$sqllistcategories = "SELECT * FROM {course_categories} WHERE depth >= 3 AND idnumber LIKE '$CFG->yearprefix%'";
 
 $listcategories = $DB->get_records_sql($sqllistcategories);
 
 foreach ($listcategories as $category) {
 
-    if (substr($category->idnumber, 0, 5) == $CFG->yearprefix) {
 
-        $cattosort = coursecat::get($category->id);
-        \core_course\management\helper::action_category_resort_subcategories($cattosort, 'name');
-    }
+    $cattosort = coursecat::get($category->id);
+    \core_course\management\helper::action_category_resort_subcategories($cattosort, 'name');
 }
 
 echo "<a href=$originurl>".get_string('redirect', 'local_scriptdroit')."</a>";
