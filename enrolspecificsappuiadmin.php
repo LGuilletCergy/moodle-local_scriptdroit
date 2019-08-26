@@ -47,7 +47,7 @@ echo $OUTPUT->header();
 
 $roleappuiadmin = $DB->get_record('role', array('shortname' => 'appuiadmin'));
 
-$sqldroit = "SELECT * FROM {course} WHERE idnumber LIKE '$CFG->previousyearprefix-1%'";
+$sqldroit = "SELECT * FROM {course} WHERE idnumber LIKE '$CFG->yearprefix-1%'";
 
 $listcourses = $DB->get_records_sql($sqldroit);
 
