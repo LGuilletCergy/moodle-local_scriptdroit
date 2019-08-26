@@ -51,14 +51,14 @@ $sqldroit = "SELECT * FROM {course} WHERE idnumber LIKE '$CFG->previousyearprefi
 
 $listcourses = $DB->get_records_sql($sqldroit);
 
-print_object($listcourses);
-
 foreach ($listcourses as $course) {
 
     $contextcourse = context_course::instance($course->id);
 
     if (!$DB->record_exists('role_assignments',
             array('roleid' => $roleappuiadmin->id, 'contextid' => $contextcourse->id))) {
+
+        print_object($contextcourse);
 
         $user1 = $DB->get_record('user', array('username' => 'fangard', 'idnumber' => 6277));
 
