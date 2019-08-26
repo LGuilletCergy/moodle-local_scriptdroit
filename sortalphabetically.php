@@ -50,7 +50,7 @@ $originurl = new moodle_url('/local/scriptdroit/scriptmanager.php');
 
 echo $OUTPUT->header();
 
-$sqllistcategories = "SELECT * FROM {course_categories} WHERE depth >= 3 AND idnumber LIKE '$CFG->yearprefix%'";
+$sqllistcategories = "SELECT * FROM {course_categories} WHERE depth >= 3";
 
 $listcategories = $DB->get_records_sql($sqllistcategories);
 
