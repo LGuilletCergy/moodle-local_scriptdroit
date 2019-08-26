@@ -51,6 +51,8 @@ $sqldroit = "SELECT * FROM {course} WHERE idnumber LIKE '$CFG->previousyearprefi
 
 $listcourses = $DB->get_records_sql($sqldroit);
 
+print_object($listcourses);
+
 foreach ($listcourses as $course) {
 
     $contextcourse = context_course::instance($course->id);
