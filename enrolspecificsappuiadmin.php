@@ -53,7 +53,7 @@ $listcourses = $DB->get_records_sql($sqldroit);
 
 foreach ($listcourses as $course) {
 
-    $contextcourse = context_course::instance($course->id);
+    $contextcourse = $DB->get_record('context', array('contextlevel' => CONTEXT_COURSE, 'instanceid' => $course->id));
 
     print_object($contextcourse);
 
