@@ -39,3 +39,4 @@ $string['scriptchoice'] = "Choisir le script à exécuter";
 $string['redirect'] = "Retour à la page précédente";
 $string['sortalphabetically'] = "Tri par ordre alphabétique des cours et catégories";
 $string['transfercourses'] = "Transfert des cours de l'UFR Droit";
+$string['enrolspecificappuiadmins'] = "Inscrire certains appuis administratifs aux cours sans appui administratifs";

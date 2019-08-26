@@ -61,6 +61,10 @@ if ($mform->is_cancelled()) {
 
         $transferurl = new moodle_url('/local/scriptdroit/transfercourses.php');
         redirect($transferurl);
+    } else if ($fromform->scriptchoice == 3) {
+
+        $transferurl = new moodle_url('/local/scriptdroit/enrolspecificsappuiadmin.php');
+        redirect($transferurl);
     } else {
 
         $originurl = new moodle_url('/admin/search.php');

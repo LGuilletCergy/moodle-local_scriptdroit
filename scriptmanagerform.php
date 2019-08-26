@@ -44,7 +44,8 @@ class scriptdroit_scriptmanager_form extends moodleform {
         $mform = $this->_form;
 
         $listscripts = array(1 => get_string('sortalphabetically', 'local_scriptdroit'),
-            2 => get_string('transfercourses', 'local_scriptdroit'));
+            2 => get_string('transfercourses', 'local_scriptdroit'),
+            3 => get_string('enrolspecificappuiadmins', 'local_scriptdroit'));
         $mform->addElement('select', 'scriptchoice', get_string('scriptchoice', 'local_scriptdroit'), $listscripts);
 
         $this->add_action_buttons();
