@@ -107,7 +107,8 @@ foreach ($listdroitoldcategories as $droitoldcategory) {
                         if (!is_enrolled($contextinstance, $user)) {
 
                             // L'appui administratif est inscrit au cours.
-                            $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual', 'courseid' => $newcourse->id));
+                            $enrolmethod = $DB->get_record('enrol', array('enrol' => 'manual',
+                                'courseid' => $newcourse->id));
                             $now = time();
                             $roleassignment = new stdClass();
                             $roleassignment->roleid = $roleappuiadmin->id;
