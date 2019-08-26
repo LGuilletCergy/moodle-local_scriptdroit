@@ -41,6 +41,10 @@ $PAGE->set_url($currenturl);
 
 global $DB;
 
+$originurl = new moodle_url('/local/scriptdroit/scriptmanager.php');
+
+echo $OUTPUT->header();
+
 $roleappuiadmin = $DB->get_record('role', array('shortname' => 'appuiadmin'));
 
 $sqldroit = "SELECT * FROM {course} WHERE idnumber LIKE '$CFG->previousyearprefix-1%'";
@@ -109,3 +113,6 @@ foreach ($listcourses as $course) {
         }
     }
 }
+
+echo "<a href=$originurl>".get_string('redirect', 'local_scriptdroit')."</a>";
+echo $OUTPUT->footer();
