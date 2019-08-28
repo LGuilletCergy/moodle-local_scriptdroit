@@ -38,5 +38,5 @@ $string['local_scriptdroit:manage'] = 'Peut lancer les scripts de l\'UFR Droit';
 $string['scriptchoice'] = "Choisir le script à exécuter";
 $string['redirect'] = "Retour à la page précédente";
 $string['sortalphabetically'] = "Tri par ordre alphabétique des cours et catégories";
-$string['transfercourses'] = "Transfert des cours de l'UFR Droit";
+$string['transfercourses'] = "Création des cours de l'UFR Droit et réinscription des appuis administratifs";
 $string['enrolspecificappuiadmins'] = "Inscrire certains appuis administratifs aux cours sans appui administratifs";

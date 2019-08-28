@@ -33,7 +33,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2019082601;
+$plugin->version = 2019082800;
 $plugin->requires = 2015051100;
 $plugin->component = 'local_scriptdroit';
 $plugin->dependencies = array(

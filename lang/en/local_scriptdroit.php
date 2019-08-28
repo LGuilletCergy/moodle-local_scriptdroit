@@ -38,5 +38,5 @@ $string['local_scriptdroit:manage'] = 'Can use UFR Droit scripts';
 $string['scriptchoice'] = "Choose script to execute";
 $string['redirect'] = "Return to previous page";
 $string['sortalphabetically'] = "Sort categories and courses alphabetically";
-$string['transfercourses'] = "Transfer UFR Droit courses";
+$string['transfercourses'] = "Create UFR Droit courses and reenrol appuiadmins";
 $string['enrolspecificappuiadmins'] = "Enrol specific appuiadmins in courses without appuiadmins";
